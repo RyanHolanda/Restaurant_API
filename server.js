@@ -62,7 +62,7 @@ const requestListener = function (req, res) {
     res.writeHead(200);
     res.end(app);
 };
-app.listen(port, host, () => {console.log(`running on http://${host}:${port}`); });
 
+app.listen(process.env.PORT || 5000)
 
 
