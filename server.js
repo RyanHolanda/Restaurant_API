@@ -56,3 +56,13 @@ app.post("/update/storestatus", async (req, res) => {
 
 
 
+const host = 'localhost';
+const port = 8080
+const requestListener = function (req, res) {
+    res.writeHead(200);
+    res.end(app);
+};
+app.listen(port, host, () => {console.log(`running on http://${host}:${port}`); });
+
+
+
