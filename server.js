@@ -3,9 +3,13 @@ const cors = require('cors')
 const Item = require('./config_items')
 const { userInfo } = require('os')
 const StoreStatus = require('./config_store_status')
+const Orders = require('./config_orders')
+const functions = require("firebase-functions");
 const app = express()
 app.use(express.json())
 app.use(cors())
+
+
 
 
 app.get("/items", async (req, res) => {
@@ -54,15 +58,26 @@ app.post("/update/storestatus", async (req, res) => {
 
 
 
+app.get("/orders", async (req, res) => {
+    const snapshot = await Orders.get();
+    const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    res.send(list);
+});
 
+app.post("/create/orders", async (req, res) => {
+    const data = req.body;
+    await Orders.add(data);
+    res.send({ msg: "order created" })
+});
 
-const host = 'localhost';
-const port = 8080
-const requestListener = function (req, res) {
-    res.writeHead(200);
-    res.end(app);
-};
+app.post("/update/orders", async (req, res) => {
+    const id = req.body.id;
+    const data = req.body;
+    delete req.body.id;
+    await Orders.doc(id).update(data);
+    res.send({ msg: "Order updated" });
+});
 
-app.listen(process.env.PORT || 5000)
+exports.app = functions.https.onRequest(app);
 
 
