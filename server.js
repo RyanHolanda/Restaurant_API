@@ -66,8 +66,9 @@ app.get("/orders", async (req, res) => {
 
 app.post("/create/orders", async (req, res) => {
     const data = req.body;
+    const id = req.body.id;
     await Orders.add(data);
-    res.send({ msg: "order created" })
+    res.send({ msg: id })
 });
 
 app.post("/update/orders", async (req, res) => {
