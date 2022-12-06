@@ -56,8 +56,6 @@ app.post("/update/storestatus", async (req, res) => {
     res.send({ msg: "updated" });
 });
 
-
-
 app.get("/orders", async (req, res) => {
     const snapshot = await Orders.get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
