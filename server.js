@@ -12,19 +12,19 @@ app.use(cors())
 
 
 
-app.get("/items", async (req, res) => {
+app.get("/*****", async (req, res) => {
     const snapshot = await Item.get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.send(list);
 });
 
-app.post("/create/item", async (req, res) => {
+app.post("/*****", async (req, res) => {
     const data = req.body;
     await Item.add(data);
     res.send({ msg: "Item added" })
 });
 
-app.post("/update/item", async (req, res) => {
+app.post("/*****", async (req, res) => {
     const id = req.body.id;
     const data = req.body;
     delete req.body.id;
@@ -32,7 +32,7 @@ app.post("/update/item", async (req, res) => {
     res.send({ msg: "updated" });
 });
 
-app.post("/delete/item", async (req, res) => {
+app.post("/******", async (req, res) => {
     const id = req.body.id;
     await Item.doc(id).delete();
     res.send({ msg: "Deleted" });
@@ -42,13 +42,13 @@ app.post("/delete/item", async (req, res) => {
 
 
 
-app.get("/storeStatus", async (req, res) => {
+app.get("/******", async (req, res) => {
     const snapshot = await StoreStatus.get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.send(list);
 });
 
-app.post("/update/storestatus", async (req, res) => {
+app.post("/********", async (req, res) => {
     const id = req.body.id;
     const data = req.body;
     delete req.body.id;
@@ -56,20 +56,20 @@ app.post("/update/storestatus", async (req, res) => {
     res.send({ msg: "updated" });
 });
 
-app.get("/orders", async (req, res) => {
+app.get("/*******", async (req, res) => {
     const snapshot = await Orders.get();
     const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.send(list);
 });
 
-app.post("/create/orders", async (req, res) => {
+app.post("/********", async (req, res) => {
     const data = req.body;
     const id = req.body.id;
     await Orders.add(data);
     res.send({ msg: id })
 });
 
-app.post("/update/orders", async (req, res) => {
+app.post("/*******", async (req, res) => {
     const id = req.body.id;
     const data = req.body;
     delete req.body.id;
